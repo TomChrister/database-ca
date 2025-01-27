@@ -19,6 +19,9 @@ This project is a simple API and database setup that allows for the creation, re
 ### GitHub Repository
 [GitHub Repository Link](https://github.com/TomChrister/database-ca)
 
+### Deployed API
+[Deployed API Link](https://database-ca.onrender.com/)
+
 ### Deployed Website
 [Deployed Website Link](https://api-database-five.vercel.app/)
 
