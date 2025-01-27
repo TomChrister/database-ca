@@ -12,15 +12,17 @@ async function fetchSuperheroes() {
         const container = document.getElementById('post-container');
         data.forEach(post => {
             const postElement = document.createElement('div');
+            postElement.classList.add('card');
             postElement.innerHTML = `
         <p>${post.name.toUpperCase()}</p>
         <p>Power level: ${post.power}</p>
+        <p>${post.role_type.toUpperCase()}</p>
       `;
             container.appendChild(postElement);
         });
 
     } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching posts:', error.message);
     }
 }
 fetchSuperheroes();
