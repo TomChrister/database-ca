@@ -2,6 +2,10 @@
 import express from 'express';
 import cors from 'cors';
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 // Create a MySQL connection
 const connection = await mysql.createConnection({
