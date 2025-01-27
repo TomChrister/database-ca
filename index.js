@@ -20,23 +20,31 @@ const port = process.env.PORT || 3010;
 app.use(cors());
 app.use(express.json());
 
+// Get superheroes with roles
+app.get('/superheroes', async (req, res) => {
+    const [rows] = await connection.query(`
+        SELECT superheroes.name, superheroes.power, roles.role_type
+        FROM superheroes
+        JOIN roles ON superheroes.role_id = roles.id;
+    `);
+    res.json(rows);
+});
+
 // Create a new superheroes post
 app.post('/superheroes', async (req, res) => {
-    const { name, power } = req.body;
+    const { name, power, role_type } = req.body;
     const [result] = await connection.query(
-        `INSERT INTO superheroes(name, power) VALUES (?, ?);`,
-        [name, power]
+        `INSERT INTO superheroes(name, power, role_id)
+        VALUES (?, ?, (SELECT id FROM roles WHERE role_type = ?));`,
+        [name, power, role_type],
     );
     res.json({ status: 'success', id: result.insertId });
 });
 
-// Sort superheroes
-app.get('/superheroes', async (req, res) => {
-    const sort = req.query.sort || 'id';
-    const sortOrder = req.query.sortOrder || 'DESC';
-    const [result] = await connection.query(
-        `SELECT * FROM superheroes ORDER BY ${sort} ${sortOrder}`
-    );
+// Get a superhero by ID
+app.get("/superheroes/:id", async (req, res) => {
+    const { id } = req.params;
+    const [result] = await connection.query("SELECT * FROM superheroes WHERE id=?", [id]);
     res.json(result);
 });
 
