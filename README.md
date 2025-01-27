@@ -73,7 +73,7 @@ This project is a simple API and database setup that allows for the creation, re
 {
     "name": "string",
     "power": "number",
-    "role_type": "string" // Either "hero" or "villain"
+    "role_type": "string"
 }
 ```
 
